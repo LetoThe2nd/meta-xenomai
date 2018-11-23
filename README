@@ -1,0 +1,79 @@
+This README file contains information on the contents of the meta-xenomai
+layer collection.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  URI: git://git.yoctoproject.org/poky.git
+  branch: morty
+
+Patches
+=======
+
+Please submit any patches against the meta-xenomai layer to the
+xenomai mailing list (xenomai@xenomai.org)
+and cc: the maintainer:
+
+Maintainer: Josef Holzmayr <holzmayr@rsi-elektrotechnik.de>
+
+Table of Contents
+=================
+
+  I. Adding the meta-xenomai layers to your build
+ II. Layer Contents
+III. Usage
+
+
+I. Adding the meta-xenomai layers to your build
+=================================================
+
+1. run 'bitbake-layers add-layer meta-xenomai/meta-core'
+2. run 'bitbake-layers add-layer meta-xenomai/meta-beaglebone
+
+II. Layer Contents
+==================
+
+meta-core:
+- the xenomai recipe infrastructure
+- a recipe for the 4.4 kernel, to be enabled by BSP layers
+- an image that contains the recommended testing utilites
+
+meta-beaglebone:
+- MACHINE definition "beaglebone-xenomai"
+- an enablement recipe for the 4.4 recipe including defconfig for the
+  beaglebone-xenomai machine
+
+III. Usage
+==========
+
+After adding meta-core and a BSP layer (right now there's only meta-beaglebone
+available, so probably that one!), build the xenomai-test-image.
+
+In case of the beaglebone, the resulting image file 
+
+tmp/deploy/images/beaglebone-xenomai/xenomai-test-image-beaglebone-xenomai.wic
+
+can be directly dd'ed to a microSD card used to boot the BBB. The testing
+procedure as recommended by Philippe Gerum is:
+
+Assuming we are talking about testing Cobalt, a typical test would include:
+
+- running the smokey test suite from the standard Xenomai distro
+- running the per-skin test suites from lib/*/testsuite
+- run some stability and performance tests, such as:
+
+$ switchtest -s 200 -Q&
+$ while :; do dd if=/dev/zero of=/dev/null bs=32M; done&
+$ latency
+
+all in parallel, for at least 12 consecutive hours.
+
+switchtest is going to hammer the co-kernel badly, exercising the basic
+mechanisms such as context switching, fpu handling and mode switching.
+
+latency will reveal any unexpected latency spots, stressed by switchtest
+and the dd loop which is known to cause massive cache eviction. Testing
+with -t0 and -t2 is a must; -t1 may be skipped if the other ones are ok,
+although it is always good to extend the test coverage as far as possible.
