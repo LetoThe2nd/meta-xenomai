@@ -24,6 +24,7 @@ Table of Contents
   I. Adding the meta-xenomai layers to your build
  II. Layer Contents
 III. Usage
+ IV. Using kas
 
 
 I. Adding the meta-xenomai layers to your build
@@ -77,3 +78,22 @@ latency will reveal any unexpected latency spots, stressed by switchtest
 and the dd loop which is known to cause massive cache eviction. Testing
 with -t0 and -t2 is a must; -t1 may be skipped if the other ones are ok,
 although it is always good to extend the test coverage as far as possible.
+
+IV. Using kas
+=============
+
+The following part of documentation is essentially taken from
+https://gitlab.denx.de/Xenomai/xenomai-images#building-target-images
+
+Install `kas-docker` from the kas project: https://github.com/siemens/kas
+
+    wget https://raw.githubusercontent.com/siemens/kas/master/kas-docker -P ~/bin/
+    chmod a+x ~/bin/kas-docker
+
+Furthermore, install docker and make sure you have required permissions to
+start containers.
+
+To build, e.g., the beaglebone-xenomai target inside Docker, invoke kas-docker like
+this:
+
+    kas-docker build kas.yml:board-beaglebone-xenomai.yml
