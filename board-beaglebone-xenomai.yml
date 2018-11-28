@@ -1,0 +1,21 @@
+#
+# Xenomai Real-Time System
+#
+# Copyright (c) R-S-I Elektrotechnik GmbH & Co.KG, 2018
+#
+# Authors:
+#  Josef Holzmayr <holzmayr@rsi-elektrotechnik.de>
+#
+# SPDX-License-Identifier: MIT
+#
+
+header:
+  version: 8
+
+machine: beaglebone-xenomai
+
+repos:
+  meta-xenomai:
+    layers:
+      meta-beaglebone:
+
