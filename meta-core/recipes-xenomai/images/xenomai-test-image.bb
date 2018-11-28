@@ -5,6 +5,7 @@ IMAGE_FEATURES += "read-only-rootfs"
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_INSTALL += " \
+	kernel-modules \
 	ltp \
 	screen \
 	xenomai-bin \
