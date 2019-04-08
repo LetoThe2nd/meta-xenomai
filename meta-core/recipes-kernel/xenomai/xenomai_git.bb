@@ -22,7 +22,7 @@ LIC_FILES_CHKSUM = " \
 RDEPENDS_${PN} = "libgcc"
 
 SRC_URI = "git://gitlab.denx.de/Xenomai/xenomai.git;protocol=https;branch=stable/v3.0.x"
-SRCREV="9741e102e1b3b4cd45babe8f194a34b469fdc632"
+SRCREV="0e79d326061190e08f53e7a41bcea50da4859615"
 
 S = "${TMPDIR}/work-shared/${MACHINE}/xenomai-source"
 B = "${WORKDIR}/build"
