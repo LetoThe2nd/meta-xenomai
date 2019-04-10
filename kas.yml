@@ -34,6 +34,7 @@ bblayers_conf_header:
     LCONF_VERSION = "6"
     BBPATH = "${TOPDIR}"
     BBFILES ?= ""
+    EXTRA_IMAGE_FEATURES = "debug-tweaks"
 
 local_conf_header:
   standard: |
